@@ -7,7 +7,11 @@ class App extends Component {
   componentDidMount() {
     getCategories();
   }
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> b4e91bb7baf877494c30dec6c65698718ff925df
   render() {
     return (
       <BrowserRouter>
