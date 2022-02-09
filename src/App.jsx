@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { getCategories } from './services/api';
+import Search from './components/Search';
 
-class App extends React.Component {
+class App extends Component {
   componentDidMount() {
     getCategories();
   }
-
+  
   render() {
     return (
-      <div>oi</div>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={ Search } />
+        </Switch>
+      </BrowserRouter>
     );
   }
 }
