@@ -1,25 +1,38 @@
-import React, { Component } from "react";
-import { getCategories } from "../services/api";
+import React from 'react';
+import { getCategories } from '../services/api';
 
+class Categories extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      returnFromAPi: [],
+    };
+  }
 
-class Categories extends Component {
+  async componentDidMount() {
+    const updatedArrayFromApi = await getCategories();
+    this.setState({ returnFromAPi: updatedArrayFromApi });
+  }
+
   render() {
-      const { getCategories } = this;
-      return (
+    const { returnFromAPi } = this.state;
+    return (
+      <section>
         {
-            getCategories.map(({ name, id }) => (
+          returnFromAPi.map(({ name, id }) => (
             <section
-            key={ id }
+              key={ id }
             >
-            <button
-            type="button"
-            data-testid="category"
-            >
-            { console.log(name) }
-            </button>
+              <button
+                type="button"
+                data-testid="category"
+              >
+                { name }
+              </button>
             </section>))
         }
-      )
+      </section>
+    );
   }
 }
 
