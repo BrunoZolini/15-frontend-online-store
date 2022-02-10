@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ProductsList from './ProductsList';
+import Categories from './Categories';
 
 class Search extends Component {
   constructor() {
@@ -46,7 +47,7 @@ class Search extends Component {
           <p data-testid="home-initial-message">
             Digite algum termo de pesquisa ou escolha uma categoria.
           </p>) : <ProductsList searchValue={ searchValue } /> }
-
+        <Categories />
       </div>
     );
   }
