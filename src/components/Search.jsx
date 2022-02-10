@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import ProductsList from './ProductsList';
 import Categories from './Categories';
+import cart from '../icons/shopping-cart.png';
 
 class Search extends Component {
   constructor() {
@@ -9,6 +11,8 @@ class Search extends Component {
       inputValue: '',
       isButtonClicked: false,
       searchValue: '',
+      categoryClicked: false,
+      categoryId: '',
     };
   }
 
@@ -23,8 +27,19 @@ class Search extends Component {
     this.setState({ isButtonClicked: true, searchValue: inputValue });
   }
 
+  handleCategoryButton = (id) => {
+    this.setState({ categoryClicked: false, categoryId: '' },
+      () => this.setState({ categoryClicked: true, categoryId: id }));
+  }
+
   render() {
-    const { inputValue, isButtonClicked, searchValue } = this.state;
+    const {
+      inputValue,
+      isButtonClicked,
+      searchValue,
+      categoryClicked,
+      categoryId,
+    } = this.state;
     return (
       <div>
         <form>
@@ -43,11 +58,19 @@ class Search extends Component {
             onChange={ this.handleChange }
           />
         </form>
-        { !isButtonClicked ? (
-          <p data-testid="home-initial-message">
-            Digite algum termo de pesquisa ou escolha uma categoria.
-          </p>) : <ProductsList searchValue={ searchValue } /> }
-        <Categories />
+        <Link data-testid="shopping-cart-button" to="/CartButton">
+          <img src={ cart } alt="shopping-cart-icon" />
+        </Link>
+        { isButtonClicked || categoryClicked ? (
+          <ProductsList
+            searchValue={ searchValue }
+            categoryValue={ categoryId }
+          />)
+          : (
+            <p data-testid="home-initial-message">
+              Digite algum termo de pesquisa ou escolha uma categoria.
+            </p>)}
+        <Categories onClickCategory={ this.handleCategoryButton } />
       </div>
     );
   }

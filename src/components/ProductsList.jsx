@@ -12,9 +12,10 @@ class ProductsList extends Component {
   }
 
   async componentDidMount() {
-    const { searchValue } = this.props;
+    const { searchValue, categoryValue } = this.props;
+    console.log(searchValue, '', categoryValue);
     const { results } = await getProductsFromCategoryAndQuery(
-      '', searchValue,
+      categoryValue, searchValue,
     );
     this.setState({ productsList: results });
   }
@@ -37,10 +38,12 @@ class ProductsList extends Component {
 
 ProductsList.propTypes = {
   searchValue: PropTypes.string,
+  categoryValue: PropTypes.string,
 };
 
 ProductsList.defaultProps = {
   searchValue: '',
+  categoryValue: '',
 };
 
 export default ProductsList;
