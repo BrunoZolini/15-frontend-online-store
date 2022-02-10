@@ -5,7 +5,7 @@ export async function getCategories() {
     const apiJson = await apiFetch.json();
     return apiJson;
   } catch (error) {
-    throw new Error('Erro: algo deu errado');
+    return new Error('Erro: algo deu errado');
   }
 }
 
@@ -16,6 +16,6 @@ export async function getProductsFromCategoryAndQuery(categoryId, query) {
     const apiJson = await apiFetch.json();
     return apiJson;
   } catch (error) {
-    throw new Error('Erro: algo deu errado');
+    return new Error('Erro: algo deu errado');
   }
 }
