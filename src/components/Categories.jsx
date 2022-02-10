@@ -1,31 +1,34 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { getCategories } from '../services/api';
 
 class Categories extends React.Component {
   constructor() {
     super();
     this.state = {
-      returnFromAPi: [],
+      returnFromApi: [],
     };
   }
 
   async componentDidMount() {
     const updatedArrayFromApi = await getCategories();
-    this.setState({ returnFromAPi: updatedArrayFromApi });
+    this.setState({ returnFromApi: updatedArrayFromApi });
   }
 
   render() {
-    const { returnFromAPi } = this.state;
+    const { onClickCategory } = this.props;
+    const { returnFromApi } = this.state;
     return (
       <section>
         {
-          returnFromAPi.map(({ name, id }) => (
+          returnFromApi.map(({ name, id }) => (
             <section
               key={ id }
             >
               <button
                 type="button"
                 data-testid="category"
+                onClick={ () => onClickCategory(id) }
               >
                 { name }
               </button>
@@ -35,4 +38,9 @@ class Categories extends React.Component {
     );
   }
 }
+
+Categories.propTypes = {
+  onClickCategory: PropTypes.func.isRequired,
+};
+
 export default Categories;
