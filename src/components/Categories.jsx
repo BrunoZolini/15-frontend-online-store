@@ -8,10 +8,12 @@ class Categories extends React.Component {
       returnFromAPi: [],
     };
   }
+
   async componentDidMount() {
     const updatedArrayFromApi = await getCategories();
     this.setState({ returnFromAPi: updatedArrayFromApi });
   }
+
   render() {
     const { returnFromAPi } = this.state;
     return (
