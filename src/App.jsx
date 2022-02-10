@@ -6,6 +6,7 @@ import CartButton from './components/CartButton';
 
 class App extends Component {
   componentDidMount() {
+    // coment
     getCategories();
   }
 
