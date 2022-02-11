@@ -22,15 +22,24 @@ class ProductsList extends Component {
 
   render() {
     const { productsList } = this.state;
+    const { handleAddCartButton } = this.props;
     return (
       <div>
         { productsList.length ? productsList.map(({ id, title, thumbnail, price }) => (
-          <ProductCard
-            key={ id }
-            title={ title }
-            thumbnail={ thumbnail }
-            price={ price }
-          />)) : <p>Nenhum produto foi encontrado</p> }
+          <div key={ id }>
+            <ProductCard
+              title={ title }
+              thumbnail={ thumbnail }
+              price={ price }
+            />
+            <button
+              type="button"
+              data-testid="product-add-to-cart"
+              onClick={ () => handleAddCartButton(id, title, thumbnail, price) }
+            >
+              Adicionar ao carrinho
+            </button>
+          </div>)) : <p>Nenhum produto foi encontrado</p> }
       </div>
     );
   }
@@ -39,6 +48,7 @@ class ProductsList extends Component {
 ProductsList.propTypes = {
   searchValue: PropTypes.string,
   categoryValue: PropTypes.string,
+  handleAddCartButton: PropTypes.func.isRequired,
 };
 
 ProductsList.defaultProps = {
