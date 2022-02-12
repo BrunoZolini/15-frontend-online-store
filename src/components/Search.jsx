@@ -34,15 +34,23 @@ class Search extends Component {
       () => this.setState({ categoryClicked: true, categoryId: id }));
   }
 
-  handleAddCartButton = (id, title, thumbnail, price) => {
+  handleAddCartButton = (product) => {
     const { cartList } = this.state;
-    const product = { id, title, thumbnail, price };
-    this.setState({ cartList: [...cartList, product] });
+    if (cartList.some((testExist) => testExist.id === product.id)) {
+      const newCardList = cartList.filter((productRep) => {
+        product.quantity = productRep.quantity;
+        return productRep.id !== product.id;
+      });
+      product.quantity += 1;
+      this.setState({ cartList: [...newCardList, product] });
+    } else {
+      product.quantity = 1;
+      this.setState({ cartList: [...cartList, product] });
+    }
   }
 
-  handleCartButton = () => {
-    const { buttonCartClicked } = this.state;
-    this.setState({ buttonCartCliked: !buttonCartClicked });
+  handleCartButton = (currentState) => {
+    this.setState({ buttonCartCliked: !currentState });
   }
 
   render() {
@@ -77,7 +85,7 @@ class Search extends Component {
         <button
           data-testid="shopping-cart-button"
           type="button"
-          onClick={ this.handleCartButton }
+          onClick={ () => this.handleCartButton(buttonCartCliked) }
         >
           <img src={ cart } alt="shopping-cart-icon" />
         </button>

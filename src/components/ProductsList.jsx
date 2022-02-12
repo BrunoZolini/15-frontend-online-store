@@ -13,11 +13,18 @@ class ProductsList extends Component {
 
   async componentDidMount() {
     const { searchValue, categoryValue } = this.props;
-    console.log(searchValue, '', categoryValue);
     const { results } = await getProductsFromCategoryAndQuery(
       categoryValue, searchValue,
     );
     this.setState({ productsList: results });
+    this.newProductList();
+  }
+
+  newProductList = () => {
+    const { productsList } = this.state;
+    const newList = productsList.map(({ id, title, thumbnail, price }) => (
+      { id, title, thumbnail, price }));
+    this.setState({ productsList: newList });
   }
 
   render() {
@@ -25,7 +32,12 @@ class ProductsList extends Component {
     const { handleAddCartButton } = this.props;
     return (
       <div>
-        { productsList.length ? productsList.map(({ id, title, thumbnail, price }) => (
+        { productsList.length ? productsList.map(({
+          id,
+          title,
+          thumbnail,
+          price,
+        }) => (
           <div key={ id }>
             <ProductCard
               title={ title }
@@ -35,7 +47,12 @@ class ProductsList extends Component {
             <button
               type="button"
               data-testid="product-add-to-cart"
-              onClick={ () => handleAddCartButton(id, title, thumbnail, price) }
+              onClick={ () => handleAddCartButton({
+                id,
+                title,
+                thumbnail,
+                price,
+              }) }
             >
               Adicionar ao carrinho
             </button>

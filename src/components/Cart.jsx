@@ -10,13 +10,16 @@ class Cart extends Component {
         <h1>Carrinho:</h1>
 
         { cartList.length ? (
-          cartList.map(({ id, title, thumbnail, price }) => (
-            <ProductCard
-              key={ id }
-              title={ title }
-              thumbnail={ thumbnail }
-              price={ price }
-            />
+          cartList.map(({ id, title, thumbnail, price, quantity }) => (
+            <div key={ id }>
+              <ProductCard
+                title={ title }
+                thumbnail={ thumbnail }
+                price={ price }
+              />
+              <span>Quantidade: </span>
+              <span data-testid="shopping-cart-product-quantity">{ quantity }</span>
+            </div>
           ))
         )
           : (
