@@ -19,6 +19,7 @@ class Cart extends Component {
                   title={ title }
                   thumbnail={ thumbnail }
                   price={ price }
+                  quantity={ quantity }
                 />
                 <div>
                   <span>Quantidade: </span>

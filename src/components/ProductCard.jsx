@@ -7,6 +7,7 @@ class ProductCard extends Component {
       title,
       thumbnail,
       price,
+      quantity,
     } = this.props;
     return (
       <div
@@ -21,7 +22,7 @@ class ProductCard extends Component {
         />
         <div>
           <span>Preço:  </span>
-          <span>{ price }</span>
+          <span>{ price * quantity }</span>
         </div>
       </div>
     );
@@ -32,6 +33,11 @@ ProductCard.propTypes = {
   title: PropTypes.string.isRequired,
   thumbnail: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
+  quantity: PropTypes.number,
+};
+
+ProductCard.defaultProps = {
+  quantity: 1,
 };
 
 export default ProductCard;
