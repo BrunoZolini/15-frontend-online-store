@@ -8,29 +8,35 @@ class Cart extends Component {
     return (
       <div>
         <h1>Carrinho:</h1>
-
-        { cartList.length ? (
-          cartList.map(({ id, title, thumbnail, price, quantity }) => (
-            <div key={ id }>
-              <ProductCard
-                title={ title }
-                thumbnail={ thumbnail }
-                price={ price }
-              />
-              <span>Quantidade: </span>
-              <span data-testid="shopping-cart-product-quantity">{ quantity }</span>
-            </div>
-          ))
-        )
-          : (
-            <div>
-              <span
-                data-testid="shopping-cart-empty-message"
+        <div className="products-list">
+          { cartList.length ? (
+            cartList.map(({ id, title, thumbnail, price, quantity }) => (
+              <div
+                className="product-card"
+                key={ id }
               >
-                Seu carrinho está vazio
-              </span>
-            </div>
-          )}
+                <ProductCard
+                  title={ title }
+                  thumbnail={ thumbnail }
+                  price={ price }
+                />
+                <div>
+                  <span>Quantidade: </span>
+                  <span data-testid="shopping-cart-product-quantity">{ quantity }</span>
+                </div>
+              </div>
+            ))
+          )
+            : (
+              <div>
+                <span
+                  data-testid="shopping-cart-empty-message"
+                >
+                  Seu carrinho está vazio
+                </span>
+              </div>
+            )}
+        </div>
       </div>
     );
   }

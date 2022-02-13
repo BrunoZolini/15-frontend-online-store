@@ -31,20 +31,24 @@ class ProductsList extends Component {
     const { productsList } = this.state;
     const { handleAddCartButton } = this.props;
     return (
-      <div>
+      <div className="products-list">
         { productsList.length ? productsList.map(({
           id,
           title,
           thumbnail,
           price,
         }) => (
-          <div key={ id }>
+          <div
+            className="product-card"
+            key={ id }
+          >
             <ProductCard
               title={ title }
               thumbnail={ thumbnail }
               price={ price }
             />
             <button
+              className="button-add-cart"
               type="button"
               data-testid="product-add-to-cart"
               onClick={ () => handleAddCartButton({

@@ -3,6 +3,7 @@ import ProductsList from './ProductsList';
 import Categories from './Categories';
 import cart from '../icons/shopping-cart.png';
 import Cart from './Cart';
+import './Search.css';
 
 class Search extends Component {
   constructor() {
@@ -26,11 +27,14 @@ class Search extends Component {
 
   handleButton = () => {
     const { inputValue } = this.state;
-    this.setState({ isButtonClicked: true, searchValue: inputValue });
+    this.setState({
+      buttonCartCliked: false,
+      isButtonClicked: true,
+      searchValue: inputValue });
   }
 
   handleCategoryButton = (id) => {
-    this.setState({ categoryClicked: false, categoryId: '' },
+    this.setState({ buttonCartCliked: false, categoryClicked: false, categoryId: '' },
       () => this.setState({ categoryClicked: true, categoryId: id }));
   }
 
@@ -64,38 +68,45 @@ class Search extends Component {
       buttonCartCliked,
     } = this.state;
     return (
-      <div>
-        <form>
-          <button
-            type="button"
-            data-testid="query-button"
-            onClick={ this.handleButton }
-          >
-            Pesquisar
-          </button>
-          <input
-            data-testid="query-input"
-            name="inputValue"
-            type="text"
-            value={ inputValue }
-            onChange={ this.handleChange }
-          />
-        </form>
+      <main>
+        <Categories onClickCategory={ this.handleCategoryButton } />
+        <section className="section-search">
+          <div className="serach-line">
+            <form className="form-search">
+              <button
+                type="button"
+                data-testid="query-button"
+                onClick={ this.handleButton }
+              >
+                Pesquisar
+              </button>
+              <input
+                className="input-search"
+                data-testid="query-input"
+                name="inputValue"
+                type="text"
+                value={ inputValue }
+                onChange={ this.handleChange }
+              />
+            </form>
 
-        <button
-          data-testid="shopping-cart-button"
-          type="button"
-          onClick={ () => this.handleCartButton(buttonCartCliked) }
-        >
-          <img src={ cart } alt="shopping-cart-icon" />
-        </button>
-        {
-          (buttonCartCliked && (!isButtonClicked || !categoryClicked))
+            <button
+              className="button-cart"
+              data-testid="shopping-cart-button"
+              type="button"
+              onClick={ () => this.handleCartButton(buttonCartCliked) }
+            >
+              <img className="img-cart" src={ cart } alt="shopping-cart-icon" />
+              <span className="cart-counter">{ cartList.length }</span>
+            </button>
+          </div>
+          {
+            (buttonCartCliked && (!isButtonClicked || !categoryClicked))
                 && <Cart cartList={ cartList } />
-        }
+          }
 
-        {
-          (!buttonCartCliked
+          {
+            (!buttonCartCliked
             && (isButtonClicked
             || categoryClicked))
               && (<ProductsList
@@ -103,9 +114,9 @@ class Search extends Component {
                 categoryValue={ categoryId }
                 handleAddCartButton={ this.handleAddCartButton }
               />)
-        }
-        {
-          (!buttonCartCliked
+          }
+          {
+            (!buttonCartCliked
           && (!isButtonClicked
           || !categoryClicked))
           && (
@@ -114,10 +125,9 @@ class Search extends Component {
             >
               Digite algum termo de pesquisa ou escolha uma categoria.
             </p>)
-        }
-
-        <Categories onClickCategory={ this.handleCategoryButton } />
-      </div>
+          }
+        </section>
+      </main>
     );
   }
 }
