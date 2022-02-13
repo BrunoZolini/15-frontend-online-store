@@ -17,14 +17,6 @@ class ProductsList extends Component {
       categoryValue, searchValue,
     );
     this.setState({ productsList: results });
-    this.newProductList();
-  }
-
-  newProductList = () => {
-    const { productsList } = this.state;
-    const newList = productsList.map(({ id, title, thumbnail, price }) => (
-      { id, title, thumbnail, price }));
-    this.setState({ productsList: newList });
   }
 
   render() {
