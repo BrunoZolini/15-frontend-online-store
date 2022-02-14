@@ -13,6 +13,7 @@ class App extends Component {
           <Route path="/CartButton" component={ Cart } />
           <Route path="/product-details/:id" component={ ProductDetails } />
         </Switch>
+        {/* // teste */}
       </BrowserRouter>
     );
   }
