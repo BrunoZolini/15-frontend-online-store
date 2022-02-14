@@ -32,3 +32,7 @@ export async function getProductFromId(productId) {
     return new Error(defaultMessage);
   }
 }
+
+// Lista as categorias da API. Exemplo: games, roupas, kids etc
+// Cada categoria será um button (map na api e cada elemento será um button -> <button>{element}</button>). Isso dentro do render
+// deve adicionar o atributo id sei lá o que em cada item
