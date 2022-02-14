@@ -13,7 +13,6 @@ class ProductsList extends Component {
 
   async componentDidMount() {
     const { searchValue, categoryValue } = this.props;
-    console.log(searchValue, '', categoryValue);
     const { results } = await getProductsFromCategoryAndQuery(
       categoryValue, searchValue,
     );
@@ -22,15 +21,38 @@ class ProductsList extends Component {
 
   render() {
     const { productsList } = this.state;
+    const { handleAddCartButton } = this.props;
     return (
-      <div>
-        { productsList.length ? productsList.map(({ id, title, thumbnail, price }) => (
-          <ProductCard
+      <div className="products-list">
+        { productsList.length ? productsList.map(({
+          id,
+          title,
+          thumbnail,
+          price,
+        }) => (
+          <div
+            className="product-card"
             key={ id }
-            title={ title }
-            thumbnail={ thumbnail }
-            price={ price }
-          />)) : <p>Nenhum produto foi encontrado</p> }
+          >
+            <ProductCard
+              title={ title }
+              thumbnail={ thumbnail }
+              price={ price }
+            />
+            <button
+              className="button-add-cart"
+              type="button"
+              data-testid="product-add-to-cart"
+              onClick={ () => handleAddCartButton({
+                id,
+                title,
+                thumbnail,
+                price,
+              }) }
+            >
+              Adicionar ao carrinho
+            </button>
+          </div>)) : <p>Nenhum produto foi encontrado</p> }
       </div>
     );
   }
@@ -39,6 +61,8 @@ class ProductsList extends Component {
 ProductsList.propTypes = {
   searchValue: PropTypes.string,
   categoryValue: PropTypes.string,
+  handleAddCartButton: PropTypes.func.isRequired,
+
 };
 
 ProductsList.defaultProps = {

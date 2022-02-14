@@ -19,20 +19,27 @@ class Categories extends React.Component {
     const { onClickCategory } = this.props;
     const { returnFromApi } = this.state;
     return (
-      <section>
+
+      <section className="section-categories">
+        <h1>Categorias:</h1>
         {
           returnFromApi.map(({ name, id }) => (
-            <section
+            <div
+              className="item-categorie"
               key={ id }
             >
               <button
+                className="button-categorie"
+
                 type="button"
                 data-testid="category"
                 onClick={ () => onClickCategory(id) }
               >
                 { name }
               </button>
+
             </section>))
+
         }
       </section>
     );
