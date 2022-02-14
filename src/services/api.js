@@ -1,3 +1,5 @@
+const defaultMessage = 'Erro: algo deu errado';
+
 export async function getCategories() {
   try {
     const availableCategoriesUrl = 'https://api.mercadolibre.com/sites/MLB/categories';
@@ -5,7 +7,7 @@ export async function getCategories() {
     const apiJson = await apiFetch.json();
     return apiJson;
   } catch (error) {
-    return new Error('Erro: algo deu errado');
+    return new Error(defaultMessage);
   }
 }
 
@@ -16,6 +18,21 @@ export async function getProductsFromCategoryAndQuery(categoryId, query) {
     const apiJson = await apiFetch.json();
     return apiJson;
   } catch (error) {
-    return new Error('Erro: algo deu errado');
+    return new Error(defaultMessage);
   }
 }
+
+export async function getProductFromId(productId) {
+  try {
+    const url = `https://api.mercadolibre.com/items/${productId}`;
+    const apiFetch = await fetch(url);
+    const apiJson = await apiFetch.json();
+    return apiJson;
+  } catch (error) {
+    return new Error(defaultMessage);
+  }
+}
+
+// Lista as categorias da API. Exemplo: games, roupas, kids etc
+// Cada categoria será um button (map na api e cada elemento será um button -> <button>{element}</button>). Isso dentro do render
+// deve adicionar o atributo id sei lá o que em cada item

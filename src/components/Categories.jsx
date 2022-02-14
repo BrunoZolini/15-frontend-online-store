@@ -19,6 +19,7 @@ class Categories extends React.Component {
     const { onClickCategory } = this.props;
     const { returnFromApi } = this.state;
     return (
+
       <section className="section-categories">
         <h1>Categorias:</h1>
         {
@@ -35,7 +36,9 @@ class Categories extends React.Component {
               >
                 { name }
               </button>
+
             </div>))
+
         }
       </section>
     );

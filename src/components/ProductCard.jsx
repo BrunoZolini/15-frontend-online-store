@@ -24,6 +24,7 @@ class ProductCard extends Component {
           <span>Preço:  </span>
           <span>{ price * quantity }</span>
         </div>
+
       </div>
     );
   }
@@ -38,6 +39,7 @@ ProductCard.propTypes = {
 
 ProductCard.defaultProps = {
   quantity: 1,
+
 };
 
 export default ProductCard;
