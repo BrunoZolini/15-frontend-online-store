@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import ProductsList from './ProductsList';
 import Categories from './Categories';
 import cart from '../icons/shopping-cart.png';
+import ProductDetails from './ProductDetails';
 
 class Search extends Component {
   constructor() {
@@ -58,7 +59,7 @@ class Search extends Component {
             onChange={ this.handleChange }
           />
         </form>
-        <Link data-testid="shopping-cart-button" to="/CartButton">
+        <Link data-testid="shopping-cart-button" to="/Cart">
           <img src={ cart } alt="shopping-cart-icon" />
         </Link>
         { isButtonClicked || categoryClicked ? (
@@ -71,6 +72,7 @@ class Search extends Component {
               Digite algum termo de pesquisa ou escolha uma categoria.
             </p>)}
         <Categories onClickCategory={ this.handleCategoryButton } />
+        <ProductDetails />
       </div>
     );
   }
