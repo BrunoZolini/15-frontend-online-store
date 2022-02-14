@@ -25,9 +25,13 @@ class ProductDetails extends React.Component {
     const { productName, productImage } = this.state;
     return (
       <div>
-        <p>{ productName }</p>
+        <p
+          data-testid="product-detail-name"
+        >
+          { productName }
+
+        </p>
         <img src={ productImage } alt={ productName } />
-        {/* <div>oi</div> */}
       </div>
     );
   }

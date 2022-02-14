@@ -55,6 +55,7 @@ class ProductsList extends Component {
             </button>
             <Link
               to={ `/product-details/${id}` }
+              data-testid="product-detail-link"
             >
               Detalhes
 
