@@ -6,7 +6,7 @@ class ProductDetails extends React.Component {
   constructor() {
     super();
     this.state = {
-      productName: '',
+      title: '',
       productImage: '',
     };
   }
@@ -17,22 +17,37 @@ class ProductDetails extends React.Component {
 
     const productReturn = await getProductFromId(id);
     this.setState({
-      productName: productReturn.title,
+      title: productReturn.title,
       productImage: productReturn.thumbnail,
     });
   }
 
   render() {
-    const { productName, productImage } = this.state;
+    const { location: { state: { handleAddCartButton } } } = this.props;
+    console.log(handleAddCartButton);
+    const { title, productImage } = this.state;
     return (
       <div>
         <p
           data-testid="product-detail-name"
         >
-          { productName }
+          { title }
 
         </p>
-        <img src={ productImage } alt={ productName } />
+        <img src={ productImage } alt={ title } />
+        <button
+          className="button-add-cart"
+          type="button"
+          data-testid="product-detail-add-to-cart"
+          // onClick={ () => handleAddCartButton({
+          // id,
+          // title,
+          // thumbnail,
+          // price,
+          // }) }
+        >
+          Adicionar ao carrinho
+        </button>
       </div>
     );
   }
@@ -42,6 +57,11 @@ ProductDetails.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.objectOf(PropTypes.string),
     id: PropTypes.string,
+  }).isRequired,
+  location: PropTypes.shape({
+    state: PropTypes.shape({
+      handleAddCartButton: PropTypes.func.isRequired,
+    }),
   }).isRequired,
 };
 

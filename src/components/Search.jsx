@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import ProductsList from './ProductsList';
 import Categories from './Categories';
 import cart from '../icons/shopping-cart.png';
-// import ProductDetails from './ProductDetails';
 import Cart from './Cart';
-import './Search.css';
+import '../styles/Search.css';
 
 class Search extends Component {
   constructor() {
