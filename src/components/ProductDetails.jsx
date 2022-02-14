@@ -25,9 +25,9 @@ class ProductDetails extends React.Component {
     const { productName, productImage } = this.state;
     return (
       <div>
-        {/* {/* <p>{ productName }</p> */}
+        <p>{ productName }</p>
         <img src={ productImage } alt={ productName } />
-        <div>oi</div>
+        {/* <div>oi</div> */}
       </div>
     );
   }

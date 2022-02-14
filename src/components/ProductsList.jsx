@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import ProductCard from './ProductCard';
@@ -53,6 +53,12 @@ class ProductsList extends Component {
             >
               Adicionar ao carrinho
             </button>
+            <Link
+              to={ `/product-details/${id}` }
+            >
+              Detalhes
+
+            </Link>
           </div>)) : <p>Nenhum produto foi encontrado</p> }
       </div>
     );
