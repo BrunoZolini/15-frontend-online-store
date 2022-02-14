@@ -4,7 +4,12 @@ import ProductCard from './ProductCard';
 
 class Cart extends Component {
   render() {
-    const { cartList } = this.props;
+    const {
+      cartList,
+      onAddButton,
+      onDecreaseButton,
+      onRemoveButton,
+    } = this.props;
     return (
       <div>
         <h1>Carrinho:</h1>
@@ -15,6 +20,18 @@ class Cart extends Component {
                 className="product-card"
                 key={ id }
               >
+                <button
+                  type="button"
+                  onClick={ () => onRemoveButton({
+                    id,
+                    title,
+                    thumbnail,
+                    price,
+                    quantity,
+                  }) }
+                >
+                  REMOVER
+                </button>
                 <ProductCard
                   title={ title }
                   thumbnail={ thumbnail }
@@ -22,8 +39,34 @@ class Cart extends Component {
                   quantity={ quantity }
                 />
                 <div>
+                  <button
+                    type="button"
+                    data-testid="product-decrease-quantity"
+                    onClick={ () => onDecreaseButton({
+                      id,
+                      title,
+                      thumbnail,
+                      price,
+                      quantity,
+                    }) }
+                  >
+                    -
+                  </button>
                   <span>Quantidade: </span>
                   <span data-testid="shopping-cart-product-quantity">{ quantity }</span>
+                  <button
+                    type="button"
+                    data-testid="product-increase-quantity"
+                    onClick={ () => onAddButton({
+                      id,
+                      title,
+                      thumbnail,
+                      price,
+                      quantity,
+                    }) }
+                  >
+                    +
+                  </button>
                 </div>
               </div>
             ))
@@ -47,6 +90,9 @@ Cart.propTypes = {
   cartList: PropTypes.arrayOf(
     PropTypes.object,
   ),
+  onAddButton: PropTypes.func.isRequired,
+  onDecreaseButton: PropTypes.func.isRequired,
+  onRemoveButton: PropTypes.func.isRequired,
 };
 
 Cart.defaultProps = {
