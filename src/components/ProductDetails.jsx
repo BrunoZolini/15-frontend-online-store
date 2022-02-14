@@ -10,6 +10,7 @@ class ProductDetails extends React.Component {
       productImage: '',
     };
   }
+  // comentario desnecessario
 
   async componentDidMount() {
     const { match: { params: { id } } } = this.props;
