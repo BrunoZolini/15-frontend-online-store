@@ -17,15 +17,15 @@ class App extends Component {
     };
   }
 
-  /*   componentDidMount = () => {
-    const localReturn = localStorage.getItem('cartList');
-    const arrayReturn = JSON.parse(localReturn);
-    if (!arrayReturn.length) {
-      this.setState({ cartList: [] });
-    } else {
-      this.setState({ cartList: arrayReturn });
-    }
-  } */
+componentDidMount = () => {
+  const localReturn = localStorage.getItem('cartList');
+  const arrayReturn = JSON.parse(localReturn);
+  if (!arrayReturn) {
+    this.setState({ cartList: [] });
+  } else {
+    this.setState({ cartList: arrayReturn });
+  }
+}
 
   handleChange = ({ target: { value, name } }) => {
     this.setState({
@@ -61,11 +61,11 @@ class App extends Component {
         return productRep;
       });
       this.setState({ cartList: newCardList });
-      // this.handleCartSize();
+      this.handleCartSize(newCardList);
     } else {
       product.quantity = 1;
       this.setState({ cartList: [...cartList, product] });
-      // this.handleCartSize();
+      this.handleCartSize([...cartList, product]);
     }
   }
 
@@ -80,9 +80,9 @@ class App extends Component {
         return productRep;
       });
       this.setState({ cartList: newCardList });
-      // this.handleCartSize();
+      this.handleCartSize(newCardList);
     } else {
-      // this.handleRemoveCartButton(product);
+      this.handleRemoveCartButton(product);
     }
   }
 
@@ -90,19 +90,14 @@ class App extends Component {
     const { cartList } = this.state;
     const newCardList = cartList.filter((productRep) => productRep.id !== product.id);
     this.setState({ cartList: newCardList });
-    // this.handleCartSize('empty');
+    this.handleCartSize(newCardList);
   }
 
-  /*   handleCartSize = (empty) => {
-    const { cartList } = this.state;
-    if (!empty) {
-      const jsonCart = JSON.stringify(cartList);
-      localStorage.setItem('cartList', jsonCart);
-      console.log('salvar carrinho');
-    }
-    localStorage.setItem('cartList', []);
+  handleCartSize = (cartList) => {
+    const jsonCart = JSON.stringify(cartList);
+    localStorage.setItem('cartList', jsonCart);
   }
- */
+
   render() {
     const {
       cartList,
