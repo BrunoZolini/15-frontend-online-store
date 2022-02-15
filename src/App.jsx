@@ -8,7 +8,7 @@ class App extends Component {
     super();
     this.state = {
       buttonCartCliked: false,
-      cartList: [], // Talvez tenha que retirar para o req 13
+      cartList: [],
       inputValue: '',
       isButtonClicked: false,
       searchValue: '',
