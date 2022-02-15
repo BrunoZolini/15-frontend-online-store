@@ -98,7 +98,7 @@ ProductDetails.propTypes = {
   handleAddCartButton: PropTypes.func.isRequired,
   handleCartButton: PropTypes.func.isRequired,
   buttonCartCliked: PropTypes.bool.isRequired,
-  cartList: PropTypes.arrayOf({}),
+  cartList: PropTypes.arrayOf(PropTypes.object),
 };
 
 ProductDetails.defaultProps = {

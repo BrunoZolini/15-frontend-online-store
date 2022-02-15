@@ -108,7 +108,7 @@ Search.propTypes = {
   handleDecreaseCartButton: PropTypes.func.isRequired,
   handleRemoveCartButton: PropTypes.func.isRequired,
   buttonCartCliked: PropTypes.bool.isRequired,
-  cartList: PropTypes.arrayOf(),
+  cartList: PropTypes.arrayOf(PropTypes.object),
   inputValue: PropTypes.string,
   isButtonClicked: PropTypes.bool.isRequired,
   searchValue: PropTypes.string,
