@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ProductsList from './ProductsList';
 import Categories from './Categories';
 import cart from '../icons/shopping-cart.png';
@@ -6,101 +7,33 @@ import Cart from './Cart';
 import '../styles/Search.css';
 
 class Search extends Component {
-  constructor() {
-    super();
-    this.state = {
-      inputValue: '',
-      isButtonClicked: false,
-      searchValue: '',
-      categoryClicked: false,
-      categoryId: '',
-      cartList: [],
-      buttonCartCliked: false,
-    };
-  }
-
-  handleChange = ({ target: { value, name } }) => {
-    this.setState({
-      [name]: value,
-    });
-  }
-
-  handleButton = () => {
-    const { inputValue } = this.state;
-    this.setState({
-      buttonCartCliked: false,
-      isButtonClicked: true,
-      searchValue: inputValue });
-  }
-
-  handleCategoryButton = (id) => {
-    this.setState({ buttonCartCliked: false, categoryClicked: false, categoryId: '' },
-      () => this.setState({ categoryClicked: true, categoryId: id }));
-  }
-
-  handleAddCartButton = (product) => {
-    const { cartList } = this.state;
-    if (cartList.some((testExist) => testExist.id === product.id)) {
-      const newCardList = cartList.map((productRep) => {
-        if (productRep.id === product.id) {
-          productRep.quantity += 1;
-          return productRep;
-        }
-        return productRep;
-      });
-      this.setState({ cartList: newCardList });
-    } else {
-      product.quantity = 1;
-      this.setState({ cartList: [...cartList, product] });
-    }
-  }
-
-  handleDecreaseCartButton = (product) => {
-    const { cartList } = this.state;
-    if (product.quantity > 1) {
-      const newCardList = cartList.map((productRep) => {
-        if (productRep.id === product.id) {
-          productRep.quantity -= 1;
-          return productRep;
-        }
-        return productRep;
-      });
-      this.setState({ cartList: newCardList });
-    } else {
-      this.handleRemoveCartButton(product);
-    }
-  }
-
-  handleRemoveCartButton = (product) => {
-    const { cartList } = this.state;
-    const newCardList = cartList.filter((productRep) => productRep.id !== product.id);
-    this.setState({ cartList: newCardList });
-  }
-
-  handleCartButton = (currentState) => {
-    this.setState({ buttonCartCliked: !currentState });
-  }
-
   render() {
     const {
+      handleAddCartButton,
+      handleDecreaseCartButton,
+      handleRemoveCartButton,
+      handleCategoryButton,
+      handleButton,
+      handleChange,
+      cartList,
+      buttonCartCliked,
       inputValue,
       isButtonClicked,
       searchValue,
       categoryClicked,
       categoryId,
-      cartList,
-      buttonCartCliked,
-    } = this.state;
+      handleCartButton,
+    } = this.props;
     return (
       <main>
-        <Categories onClickCategory={ this.handleCategoryButton } />
+        <Categories onClickCategory={ handleCategoryButton } />
         <section className="section-search">
           <div className="serach-line">
             <form className="form-search">
               <button
                 type="button"
                 data-testid="query-button"
-                onClick={ this.handleButton }
+                onClick={ handleButton }
               >
                 Pesquisar
               </button>
@@ -110,7 +43,7 @@ class Search extends Component {
                 name="inputValue"
                 type="text"
                 value={ inputValue }
-                onChange={ this.handleChange }
+                onChange={ handleChange }
               />
             </form>
 
@@ -118,7 +51,7 @@ class Search extends Component {
               className="button-cart"
               data-testid="shopping-cart-button"
               type="button"
-              onClick={ () => this.handleCartButton(buttonCartCliked) }
+              onClick={ () => handleCartButton(buttonCartCliked) }
             >
               <img className="img-cart" src={ cart } alt="shopping-cart-icon" />
               <span className="cart-counter">{ cartList.length }</span>
@@ -128,9 +61,9 @@ class Search extends Component {
             (buttonCartCliked && (!isButtonClicked || !categoryClicked))
                 && <Cart
                   cartList={ cartList }
-                  onDecreaseButton={ this.handleDecreaseCartButton }
-                  onRemoveButton={ this.handleRemoveCartButton }
-                  onAddButton={ this.handleAddCartButton }
+                  onDecreaseButton={ handleDecreaseCartButton }
+                  onRemoveButton={ handleRemoveCartButton }
+                  onAddButton={ handleAddCartButton }
                 />
           }
 
@@ -141,7 +74,7 @@ class Search extends Component {
               && (<ProductsList
                 searchValue={ searchValue }
                 categoryValue={ categoryId }
-                handleAddCartButton={ this.handleAddCartButton }
+                handleAddCartButton={ handleAddCartButton }
               />)
           }
           {
@@ -160,5 +93,29 @@ class Search extends Component {
     );
   }
 }
+
+Search.propTypes = {
+  handleAddCartButton: PropTypes.func.isRequired,
+  handleDecreaseCartButton: PropTypes.func.isRequired,
+  handleRemoveCartButton: PropTypes.func.isRequired,
+  buttonCartCliked: PropTypes.bool.isRequired,
+  cartList: PropTypes.arrayOf(),
+  inputValue: PropTypes.string,
+  isButtonClicked: PropTypes.bool.isRequired,
+  searchValue: PropTypes.string,
+  categoryClicked: PropTypes.bool.isRequired,
+  categoryId: PropTypes.string,
+  handleCategoryButton: PropTypes.func.isRequired,
+  handleButton: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleCartButton: PropTypes.func.isRequired,
+};
+
+Search.defaultProps = {
+  cartList: [],
+  inputValue: '',
+  searchValue: '',
+  categoryId: '',
+};
 
 export default Search;

@@ -1,54 +1,81 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link, Redirect } from 'react-router-dom';
 import { getProductFromId } from '../services/api';
+import cart from '../icons/shopping-cart.png';
 
 class ProductDetails extends React.Component {
   constructor() {
     super();
     this.state = {
+      id: '',
+      price: '',
       title: '',
-      productImage: '',
+      thumbnail: '',
     };
   }
-  // comentario desnecessario
 
   async componentDidMount() {
     const { match: { params: { id } } } = this.props;
 
     const productReturn = await getProductFromId(id);
     this.setState({
+      id: productReturn.id,
+      price: productReturn.price,
       title: productReturn.title,
-      productImage: productReturn.thumbnail,
+      thumbnail: productReturn.thumbnail,
     });
   }
 
   render() {
-    const { location: { state: { handleAddCartButton } } } = this.props;
-    console.log(handleAddCartButton);
-    const { title, productImage } = this.state;
-    return (
-      <div>
-        <p
-          data-testid="product-detail-name"
-        >
-          { title }
+    const { id, price, title, thumbnail } = this.state;
 
-        </p>
-        <img src={ productImage } alt={ title } />
-        <button
-          className="button-add-cart"
-          type="button"
-          data-testid="product-detail-add-to-cart"
-          // onClick={ () => handleAddCartButton({
-          // id,
-          // title,
-          // thumbnail,
-          // price,
-          // }) }
-        >
-          Adicionar ao carrinho
-        </button>
-      </div>
+    const {
+      handleAddCartButton,
+      handleCartButton,
+      buttonCartCliked,
+      cartList,
+    } = this.props;
+
+    return (
+      <section>
+        { buttonCartCliked && <Redirect to="/" /> }
+
+        <div>
+          <Link to="/">Home</Link>
+          <button
+            className="button-cart"
+            data-testid="shopping-cart-button"
+            type="button"
+            onClick={ () => handleCartButton(buttonCartCliked) }
+          >
+            <img className="img-cart" src={ cart } alt="shopping-cart-icon" />
+            <span className="cart-counter">{ cartList.length }</span>
+          </button>
+        </div>
+        <div>
+          <p
+            data-testid="product-detail-name"
+          >
+            { title }
+
+          </p>
+          <img src={ thumbnail } alt={ title } />
+          <button
+            className="button-add-cart"
+            type="button"
+            data-testid="product-detail-add-to-cart"
+            onClick={ () => handleAddCartButton({
+              id,
+              title,
+              thumbnail,
+              price,
+            }) }
+          >
+            Adicionar ao carrinho
+          </button>
+        </div>
+      </section>
     );
   }
 }
@@ -58,11 +85,14 @@ ProductDetails.propTypes = {
     params: PropTypes.objectOf(PropTypes.string),
     id: PropTypes.string,
   }).isRequired,
-  location: PropTypes.shape({
-    state: PropTypes.shape({
-      handleAddCartButton: PropTypes.func.isRequired,
-    }),
-  }).isRequired,
+  handleAddCartButton: PropTypes.func.isRequired,
+  handleCartButton: PropTypes.func.isRequired,
+  buttonCartCliked: PropTypes.bool.isRequired,
+  cartList: PropTypes.arrayOf({}),
+};
+
+ProductDetails.defaultProps = {
+  cartList: [],
 };
 
 export default ProductDetails;

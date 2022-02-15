@@ -74,6 +74,7 @@ ProductsList.propTypes = {
   handleAddCartButton: PropTypes.func.isRequired,
 
 };
+
 ProductsList.defaultProps = {
   searchValue: '',
   categoryValue: '',
