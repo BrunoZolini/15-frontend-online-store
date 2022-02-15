@@ -85,7 +85,6 @@ ProductDetails.propTypes = {
     params: PropTypes.objectOf(PropTypes.string),
     id: PropTypes.string,
   }).isRequired,
-
   handleAddCartButton: PropTypes.func.isRequired,
   handleCartButton: PropTypes.func.isRequired,
   buttonCartCliked: PropTypes.bool.isRequired,

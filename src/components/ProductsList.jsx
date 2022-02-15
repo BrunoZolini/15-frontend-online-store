@@ -54,7 +54,9 @@ class ProductsList extends Component {
               Adicionar ao carrinho
             </button>
             <Link
-              to={ `/product-details/${id}` }
+              to={ {
+                pathname: `/product-details/${id}`,
+                state: { handleAddCartButton } } }
               data-testid="product-detail-link"
             >
               Detalhes
