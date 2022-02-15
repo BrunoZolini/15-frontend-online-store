@@ -7,67 +7,33 @@ import Cart from './Cart';
 import './Search.css';
 
 class Search extends Component {
-  constructor() {
-    super();
-    this.state = {
-      inputValue: '',
-      isButtonClicked: false,
-      searchValue: '',
-      categoryClicked: false,
-      categoryId: '',
-      buttonCartCliked: false,
-    };
-  }
-
-  handleChange = ({ target: { value, name } }) => {
-    this.setState({
-      [name]: value,
-    });
-  }
-
-  handleButton = () => {
-    const { inputValue } = this.state;
-    this.setState({
-      buttonCartCliked: false,
-      isButtonClicked: true,
-      searchValue: inputValue });
-  }
-
-  handleCategoryButton = (id) => {
-    this.setState({ buttonCartCliked: false, categoryClicked: false, categoryId: '' },
-      () => this.setState({ categoryClicked: true, categoryId: id }));
-  }
-
-  handleCartButton = (currentState) => {
-    this.setState({ buttonCartCliked: !currentState });
-  }
-
   render() {
     const {
       handleAddCartButton,
       handleDecreaseCartButton,
       handleRemoveCartButton,
+      handleCategoryButton,
+      handleButton,
+      handleChange,
       cartList,
-    } = this.props;
-
-    const {
+      buttonCartCliked,
       inputValue,
       isButtonClicked,
       searchValue,
       categoryClicked,
       categoryId,
-      buttonCartCliked,
-    } = this.state;
+      handleCartButton,
+    } = this.props;
     return (
       <main>
-        <Categories onClickCategory={ this.handleCategoryButton } />
+        <Categories onClickCategory={ handleCategoryButton } />
         <section className="section-search">
           <div className="serach-line">
             <form className="form-search">
               <button
                 type="button"
                 data-testid="query-button"
-                onClick={ this.handleButton }
+                onClick={ handleButton }
               >
                 Pesquisar
               </button>
@@ -77,7 +43,7 @@ class Search extends Component {
                 name="inputValue"
                 type="text"
                 value={ inputValue }
-                onChange={ this.handleChange }
+                onChange={ handleChange }
               />
             </form>
 
@@ -85,7 +51,7 @@ class Search extends Component {
               className="button-cart"
               data-testid="shopping-cart-button"
               type="button"
-              onClick={ () => this.handleCartButton(buttonCartCliked) }
+              onClick={ () => handleCartButton(buttonCartCliked) }
             >
               <img className="img-cart" src={ cart } alt="shopping-cart-icon" />
               <span className="cart-counter">{ cartList.length }</span>
@@ -132,11 +98,24 @@ Search.propTypes = {
   handleAddCartButton: PropTypes.func.isRequired,
   handleDecreaseCartButton: PropTypes.func.isRequired,
   handleRemoveCartButton: PropTypes.func.isRequired,
+  buttonCartCliked: PropTypes.bool.isRequired,
   cartList: PropTypes.arrayOf(),
+  inputValue: PropTypes.string,
+  isButtonClicked: PropTypes.bool.isRequired,
+  searchValue: PropTypes.string,
+  categoryClicked: PropTypes.bool.isRequired,
+  categoryId: PropTypes.string,
+  handleCategoryButton: PropTypes.func.isRequired,
+  handleButton: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleCartButton: PropTypes.func.isRequired,
 };
 
 Search.defaultProps = {
   cartList: [],
+  inputValue: '',
+  searchValue: '',
+  categoryId: '',
 };
 
 export default Search;
