@@ -50,7 +50,16 @@ class ProductDetails extends React.Component {
             onClick={ () => handleCartButton(buttonCartCliked) }
           >
             <img className="img-cart" src={ cart } alt="shopping-cart-icon" />
-            <span className="cart-counter">{ cartList.length }</span>
+            <span
+              className="cart-counter"
+              data-testid="shopping-cart-size"
+            >
+              { cartList.reduce((acc, { quantity }) => {
+                if (!quantity) return acc;
+                acc += quantity;
+                return acc;
+              }, 0) }
+            </span>
           </button>
         </div>
         <div>
@@ -88,7 +97,7 @@ ProductDetails.propTypes = {
   handleAddCartButton: PropTypes.func.isRequired,
   handleCartButton: PropTypes.func.isRequired,
   buttonCartCliked: PropTypes.bool.isRequired,
-  cartList: PropTypes.arrayOf({}),
+  cartList: PropTypes.arrayOf(PropTypes.object),
 };
 
 ProductDetails.defaultProps = {
