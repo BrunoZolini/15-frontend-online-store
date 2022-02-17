@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Search from './components/Search';
 import ProductDetails from './components/ProductDetails';
+import PurchaseCart from './components/PurchaseCart';
 
 class App extends Component {
   constructor() {
@@ -140,6 +141,13 @@ componentDidMount = () => {
               handleAddCartButton={ this.handleAddCartButton }
               handleCartButton={ this.handleCartButton }
               buttonCartCliked={ buttonCartCliked }
+              cartList={ cartList }
+            />) }
+          />
+          <Route
+            path="/purchase-cart"
+            render={ (props) => (<PurchaseCart
+              { ...props }
               cartList={ cartList }
             />) }
           />
