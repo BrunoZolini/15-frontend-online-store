@@ -10,13 +10,21 @@ class Cart extends Component {
       onAddButton,
       onDecreaseButton,
       onRemoveButton,
+      isButtonAddDisable,
     } = this.props;
     return (
       <div>
         <h1>Carrinho:</h1>
         <div className="products-list">
           { cartList.length ? (
-            cartList.map(({ id, title, thumbnail, price, quantity }) => (
+            cartList.map(({
+              id,
+              title,
+              thumbnail,
+              price,
+              quantity,
+              availableQuantity,
+            }) => (
               <div
                 className="product-card"
                 key={ id }
@@ -58,12 +66,14 @@ class Cart extends Component {
                   <button
                     type="button"
                     data-testid="product-increase-quantity"
+                    disabled={ isButtonAddDisable }
                     onClick={ () => onAddButton({
                       id,
                       title,
                       thumbnail,
                       price,
                       quantity,
+                      availableQuantity,
                     }) }
                   >
                     +
@@ -100,6 +110,7 @@ Cart.propTypes = {
   onAddButton: PropTypes.func.isRequired,
   onDecreaseButton: PropTypes.func.isRequired,
   onRemoveButton: PropTypes.func.isRequired,
+  isButtonAddDisable: PropTypes.bool.isRequired,
 };
 
 Cart.defaultProps = {

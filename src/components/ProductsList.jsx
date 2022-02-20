@@ -22,7 +22,7 @@ class ProductsList extends Component {
 
   render() {
     const { productsList } = this.state;
-    const { handleAddCartButton } = this.props;
+    const { handleAddCartButton, isButtonAddDisable } = this.props;
     return (
       <div className="products-list">
         { productsList.length ? productsList.map(({
@@ -30,6 +30,7 @@ class ProductsList extends Component {
           title,
           thumbnail,
           price,
+          available_quantity: availableQuantity,
         }) => (
           <div
             className="product-card"
@@ -39,16 +40,19 @@ class ProductsList extends Component {
               title={ title }
               thumbnail={ thumbnail }
               price={ price }
+
             />
             <button
               className="button-add-cart"
               type="button"
               data-testid="product-add-to-cart"
+              disabled={ isButtonAddDisable }
               onClick={ () => handleAddCartButton({
                 id,
                 title,
                 thumbnail,
                 price,
+                availableQuantity,
               }) }
             >
               Adicionar ao carrinho
@@ -70,7 +74,7 @@ ProductsList.propTypes = {
   searchValue: PropTypes.string,
   categoryValue: PropTypes.string,
   handleAddCartButton: PropTypes.func.isRequired,
-
+  isButtonAddDisable: PropTypes.bool.isRequired,
 };
 
 ProductsList.defaultProps = {
