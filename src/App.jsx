@@ -15,6 +15,7 @@ class App extends Component {
       searchValue: '',
       categoryClicked: false,
       categoryId: '',
+      isButtonAddDisable: false,
     };
   }
 
@@ -65,8 +66,19 @@ componentDidMount = () => {
       this.handleCartSize(newCardList);
     } else {
       product.quantity = 1;
-      this.setState({ cartList: [...cartList, product] });
+      this.setState({
+        cartList: [...cartList, product] });
       this.handleCartSize([...cartList, product]);
+    }
+  }
+
+  handleButtonDisableCartAdd = (product) => {
+    if (product.quantity === product.availableQuantity) {
+      this.setState({
+        isButtonAddDisable: true,
+      });
+    } else {
+      this.handleAddCartButton(product);
     }
   }
 
@@ -108,6 +120,7 @@ componentDidMount = () => {
       searchValue,
       categoryClicked,
       categoryId,
+      isButtonAddDisable,
     } = this.state;
     return (
       <BrowserRouter>
@@ -117,7 +130,7 @@ componentDidMount = () => {
             path="/"
             render={ (props) => (<Search
               { ...props }
-              handleAddCartButton={ this.handleAddCartButton }
+              handleAddCartButton={ this.handleButtonDisableCartAdd }
               handleDecreaseCartButton={ this.handleDecreaseCartButton }
               handleRemoveCartButton={ this.handleRemoveCartButton }
               cartList={ cartList }
@@ -131,6 +144,7 @@ componentDidMount = () => {
               handleButton={ this.handleButton }
               handleCategoryButton={ this.handleCategoryButton }
               handleCartButton={ this.handleCartButton }
+              isButtonAddDisable={ isButtonAddDisable }
             />) }
           />
 
@@ -138,10 +152,11 @@ componentDidMount = () => {
             path="/product-details/:id"
             render={ (props) => (<ProductDetails
               { ...props }
-              handleAddCartButton={ this.handleAddCartButton }
+              handleAddCartButton={ this.handleButtonDisableCartAdd }
               handleCartButton={ this.handleCartButton }
               buttonCartCliked={ buttonCartCliked }
               cartList={ cartList }
+              isButtonAddDisable={ isButtonAddDisable }
             />) }
           />
           <Route

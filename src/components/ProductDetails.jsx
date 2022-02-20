@@ -30,6 +30,7 @@ class ProductDetails extends React.Component {
       price: productReturn.price,
       title: productReturn.title,
       thumbnail: productReturn.thumbnail,
+      availableQuantity: productReturn.available_quantity,
     });
     this.getProductReview();
   }
@@ -90,6 +91,7 @@ class ProductDetails extends React.Component {
       isButtonDisabled,
       rating,
       reviewArray,
+      availableQuantity,
     } = this.state;
 
     const {
@@ -97,6 +99,7 @@ class ProductDetails extends React.Component {
       handleCartButton,
       buttonCartCliked,
       cartList,
+      isButtonAddDisable,
     } = this.props;
 
     return (
@@ -136,11 +139,13 @@ class ProductDetails extends React.Component {
             className="button-add-cart"
             type="button"
             data-testid="product-detail-add-to-cart"
+            disabled={ isButtonAddDisable }
             onClick={ () => handleAddCartButton({
               id,
               title,
               thumbnail,
               price,
+              availableQuantity,
             }) }
           >
             Adicionar ao car1inho
@@ -175,6 +180,7 @@ ProductDetails.propTypes = {
   handleCartButton: PropTypes.func.isRequired,
   buttonCartCliked: PropTypes.bool.isRequired,
   cartList: PropTypes.arrayOf(PropTypes.object),
+  isButtonAddDisable: PropTypes.bool.isRequired,
 };
 
 ProductDetails.defaultProps = {

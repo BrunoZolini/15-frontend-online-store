@@ -23,6 +23,7 @@ class Search extends Component {
       categoryClicked,
       categoryId,
       handleCartButton,
+      isButtonAddDisable,
     } = this.props;
     return (
       <main>
@@ -73,6 +74,7 @@ class Search extends Component {
                   onDecreaseButton={ handleDecreaseCartButton }
                   onRemoveButton={ handleRemoveCartButton }
                   onAddButton={ handleAddCartButton }
+                  isButtonAddDisable={ isButtonAddDisable }
                 />
           }
 
@@ -84,6 +86,7 @@ class Search extends Component {
                 searchValue={ searchValue }
                 categoryValue={ categoryId }
                 handleAddCartButton={ handleAddCartButton }
+                isButtonAddDisable={ isButtonAddDisable }
               />)
           }
           {
@@ -118,6 +121,7 @@ Search.propTypes = {
   handleButton: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleCartButton: PropTypes.func.isRequired,
+  isButtonAddDisable: PropTypes.bool.isRequired,
 };
 
 Search.defaultProps = {
