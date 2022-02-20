@@ -8,6 +8,7 @@ class ProductCard extends Component {
       thumbnail,
       price,
       quantity,
+      freeShipping,
     } = this.props;
     return (
       <div
@@ -20,6 +21,9 @@ class ProductCard extends Component {
           src={ thumbnail }
           alt={ title }
         />
+        {
+          freeShipping && <p data-testid="free-shipping">Frete Grátis</p>
+        }
         <div>
           <span>Preço:  </span>
           <span>{ price * quantity }</span>
@@ -35,6 +39,7 @@ ProductCard.propTypes = {
   thumbnail: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   quantity: PropTypes.number,
+  freeShipping: PropTypes.bool.isRequired,
 };
 
 ProductCard.defaultProps = {

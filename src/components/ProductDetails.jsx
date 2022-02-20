@@ -18,6 +18,7 @@ class ProductDetails extends React.Component {
       isButtonDisabled: true,
       rating: '',
       reviewArray: [],
+      shipping: false,
     };
   }
 
@@ -31,7 +32,9 @@ class ProductDetails extends React.Component {
       title: productReturn.title,
       thumbnail: productReturn.thumbnail,
       availableQuantity: productReturn.available_quantity,
+      shipping: productReturn.shipping.free_shipping,
     });
+
     this.getProductReview();
   }
 
@@ -92,6 +95,7 @@ class ProductDetails extends React.Component {
       rating,
       reviewArray,
       availableQuantity,
+      shipping,
     } = this.state;
 
     const {
@@ -148,8 +152,11 @@ class ProductDetails extends React.Component {
               availableQuantity,
             }) }
           >
-            Adicionar ao car1inho
+            Adicionar ao carrinho
           </button>
+          {
+            shipping && <p data-testid="free-shipping">Frete Grátis</p>
+          }
         </div>
         <RatingForm
           handleChange={ this.handleChange }

@@ -31,12 +31,14 @@ class ProductsList extends Component {
           thumbnail,
           price,
           available_quantity: availableQuantity,
+          shipping: { free_shipping: freeShipping },
         }) => (
           <div
             className="product-card"
             key={ id }
           >
             <ProductCard
+              freeShipping={ freeShipping }
               title={ title }
               thumbnail={ thumbnail }
               price={ price }
